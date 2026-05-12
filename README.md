@@ -11,6 +11,11 @@
 - [Tested Environment](#tested-environment)
 - [Assumptions](#assumptions)
 - [Troubleshooting](#troubleshooting)
+  - [Angular syntax highlighting not working](#angular-syntax-highlighting-not-working)
+  - [Organize imports not triggering](#organize-imports-not-triggering)
+  - [Prettier not formatting Angular templates](#prettier-not-formatting-angular-templates)
+  - [HTML completion and TailwindCSS Intellisense not working](#html-completion-and-tailwindcss-intellisense-not-working)
+  - [Project setup outside of `src` directory](#project-setup-outside-of-src-directory)
 - [Screenshots](#screenshots)
 
 ## Why This Exists
@@ -150,6 +155,49 @@ Ensure:
 - Prettier is enabled in the settings.
 - Prettier is installed in the project.
 - `.prettierrc` includes the Angular parser override.
+
+### HTML completion and TailwindCSS Intellisense not working
+
+#### When `.html` files are remapped to the `Angular` language using:
+
+```json
+"file_types": {
+  "Angular": ["**/src/**/*.html"]
+}
+```
+HTML language features and TailwindCSS IntelliSense may stop working correctly.
+
+At the moment, there is no known configuration that reliably preserves:
+- Angular template syntax highlighting
+- HTML completion
+- TailwindCSS IntelliSense
+
+simultaneously.
+
+#### Workaround:
+
+Temporarily switch the active file language to `HTML`:
+
+- Press `ctrl + k`, then `m`
+- Select HTML
+
+This restores:
+
+- HTML completion
+- TailwindCSS IntelliSense
+
+However, Angular-specific syntax highlighting may be reduced while the file is in HTML mode.  
+
+### Project setup outside of `src` directory
+
+If Angular templates are located outside the `src` directory
+(for example in monorepos, libraries, or Nx workspaces),
+update the `file_types` configuration to:
+
+```json
+  "file_types": {
+    "Angular": ["**/*.html"],
+```
 
 ## Screenshots
 
